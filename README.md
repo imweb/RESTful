@@ -18,7 +18,7 @@
 
 -----
 
-##Request
+## Request
 
 ### Method
 * GET：查询资源
@@ -31,7 +31,7 @@
 
 ---
 
-###安全性与幂等性
+### 安全性与幂等性
 * 安全性：任意多次对同一资源操作，都不会导致资源的状态变化
 * 幂等性：任意次对同一资源操作，对资源的改变是一样的
 |Method|安全性|幂等性|
@@ -60,35 +60,35 @@
 
 ### 参数
 
-####Method
+#### Method
 
 ##### GET
 * 非id的参数使用'?'方式传输
 ```javascript
 	/users/1?state=closed
 ```
-#####POST、PATCH、PUT、DELETE
+##### POST、PATCH、PUT、DELETE
 * 非id的参数使用body传输，并且应该encode
 
-####过滤
+#### 过滤
 ?type=1&state=closed
 
 #### 排序
 * `+`升序，如?sort=+create_time，根据create_time升序
 * `-`降序，如?sort=-create_time，根据create_time降序
 
-####分页
+#### 分页
 ?limit=10&offset=10
 * limit：返回记录数量
 * offset：返回记录的开始位置
 
-####单参数多字段
+#### 单参数多字段
 使用`,` 分隔，如
 ```javascript
 	/users/1?fields=name,age,city
 ```
 
-####Bookmarker
+#### Bookmarker
 
 
 ---
@@ -112,7 +112,7 @@
 |201|POST|创建资源成功|
 
 
-###客户端错误
+### 客户端错误
 |Code|Method|Describe|
 |----|------|--------|
 |400|ALL|一般是参数错误|
@@ -121,7 +121,7 @@
 |404|ALL|资源不存在（github在权限校验失败的情况下也会返回404，为了防止一些私有接口泄露出去）|
 |422|ALL|一般是必要字段缺失或参数格式化问题|
 
-###服务器错误
+### 服务器错误
 |CODE|METHOD|DESCRIBE|
 |----|------|--------|
 |500|ALL|服务器未知错误|
@@ -132,7 +132,7 @@
 
 
 
-##HATEOAS
+## HATEOAS
 在介绍HATEOAS之前，先介绍一下REST的成熟度模型
 > 在介绍 HATEOAS 之前，先介绍一下 Richardson 提出的 REST 成熟度模型。该模型把 REST 服务按照成熟度划分成 4 个层次：
 * 第一个层次（Level 0）的 Web 服务只是使用 HTTP 作为传输方式，实际上只是远程方法调用（RPC）的一种具体形式。
@@ -177,10 +177,10 @@ response
 
 ---
 
-###权限相关
+### 权限相关
 如用户查询一个订单
 
-####普通用户
+#### 普通用户
 
 request
 ```javascript
@@ -205,7 +205,7 @@ response
 * rel: 'self'，资源本身
 * rel: 'related'，与当前资源相关的资源，`/order/1/payment`用户可以使用此资源进行支付
 
-####权限用户
+#### 权限用户
 
 request
 ```
@@ -245,11 +245,11 @@ response
 |related|指向一个与当前资源相关的资源|
 |first、last、prev、next|分别用来指向第一个、最后一个、上一个和下一个资源|
 
-###HATEOAS总结
+### HATEOAS总结
 由以上例子可以看出`_link`就是以Hyperlink表述资源与资源之间的关系，这种方式使客户端与服务端能很好的分离开来，只要接口的定义不变，客户端与服务端就可以独立的开发和演变。
 
 
-##Future
+## Future
 * 利用框架判断行为？
 * 利用框架添加HATEOAS表述？
 * api的快速查找、返回数据定义，假数据？
